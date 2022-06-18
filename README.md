@@ -24,3 +24,7 @@
 > - Value is body of mail
 > 5.	Send collected data to yourself as: “Received mail on theme {Theme} with message: {Body}. It contains {Count of letters} letters and {Count of numbers} numbers” (repeat for each mail).
 > 6.	Delete all received mails except the last one.
+
+## Чтобы изменить количество отправляемых писем поменяйте изменить цифру в файле test_mail.py
+
+![This is screenshot](https://sun9-34.userapi.com/impg/6CpZ8Xw1UhL0XCOuCqDhyyeGp3D3aWuRoTXDTQ/5G_Xv-EVlDQ.jpg?size=625x112&quality=95&sign=46ed4f9cc8c8eab4e55fe18d0d20e0c1&type=album)
