@@ -19,7 +19,7 @@ class TestUserCanSendMail():
         self.link = "https://mail.aol.com/webmail-std/en-gb/suite"
         self.page = MailPage(browser, self.link)
         self.page.open()
-        self.page.run_mail(2) # in () input count of sended mails
+        self.page.run_mail(2) # in () enter the number of mails to be sent
 
 
     
