@@ -5,7 +5,7 @@ import time
 
 @pytest.fixture(scope="function")
 def browser():
-    print("\nstart browser chrome for test...")
+    print("\nstart browser firefox for test...")
     # options = webdriver.ChromeOptions()
     # options.add_experimental_option('excludeSwitches', ['enable-logging'])
     browser = webdriver.Firefox()

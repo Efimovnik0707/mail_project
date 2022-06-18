@@ -221,5 +221,4 @@ class MailPage(BasePage):
         self.delete_mail.click()
         print('Func has done')
 
-    def run_mail(self):
-        self.send_mail(2)
+    
