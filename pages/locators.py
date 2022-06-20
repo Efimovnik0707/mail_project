@@ -34,7 +34,6 @@ class InboxPageLocators():
     PRODUCT_PRICE = (By.CSS_SELECTOR, ".product-price > span")
     SUCCESS_BASKET_BUT = (By.CSS_SELECTOR, ".content a")
 
-
 class MailPageLocators():
     NEW_MAIL = (By.CSS_SELECTOR, ".unselectable.btn.composeBtn")
     EMAIL_RECEIVER = ( By.CSS_SELECTOR, '#toInputField')
@@ -52,6 +51,7 @@ class MailPageLocators():
     OK_BTN = (By.XPATH, "//div[contains(text(),'OK')]")
     # DELETE_BTN_IN_MAIL = (By.XPATH, "//body/div[@id='ws_application']/div[@id='ws_appScroll']/div[@id='appContent']/div[@id='ws_view']/div[3]/div[1]/div[1]/div[1]/div[1]/div[7]/div[1]")
     DELETE_BTN_IN_MAIL = (By.XPATH, "/html/body/div[1]/div/div[3]/div[3]/div[3]/div/div/div[1]/div[1]/div[7]/div[1]")
+    # DELETE_BTN_IN_MAIL = (By.ID, "uniqName_4_22")
     # DELIVERED_SUBJECT = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[3]/div[3]/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[4]/span[1]")
     DELIVERED_SUBJECT = (By.XPATH, "/html/body/div[1]/div/div[3]/div[3]/div[2]/div/div[1]/div[1]/div[5]/div/div[2]/div/div/div/div/div[1]/table/tbody/tr/td[4]/span[1]")
     DELIVERED_SUBJECT2 = (By.XPATH, "/html/body/div[1]/div/div[3]/div[3]/div[2]/div/div[1]/div[1]/div[5]/div/div[2]/div/div/div/div/div[2]/table/tbody/tr/td[4]/span[1]")
@@ -60,3 +60,6 @@ class MailPageLocators():
     #dojox_grid_Grid_0 > div.dojoxGrid-master-header > div > div > div > table > tbody > tr > th.dojoxGrid-cell.gridColSel
     #page-0 > div:nth-child(1) > table > tbody > tr > td.dojoxGrid-cell.gridColSel
     #page-0 > div:nth-child(3) > table > tbody > tr > td.dojoxGrid-cell.gridColSel
+    ROW = (By.CSS_SELECTOR, ".dojoxGrid-row")
+    ROW_SUBJECT = (By.CSS_SELECTOR, ".gridColSub")
+    ROW_SUBJECT_SPAN = (By.TAG_NAME, "span")
