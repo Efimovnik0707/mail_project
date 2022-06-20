@@ -17,9 +17,19 @@ class TestUserCanSendMail():
 
     def test_user_send_read_delete(self, browser):
         self.link = "https://mail.aol.com/webmail-std/en-gb/suite"
-        self.page = MailPage(browser, self.link)
-        self.page.open()
-        self.page.run_mail(2) # in () enter the number of mails to be sent
+        page = MailPage(browser, self.link)
+        page.open()
+        page.prepare_test()
+        TEST_ROUNDS = 5
+        for round in range(TEST_ROUNDS):
+            page.send_mail()
+            page.try_to_find_deliverd_message()
+            page.read_mail()
+            page.send_new_mail()
+            page.re_check_deliver_mail()
+            page.finalize_test_round()
+
+        page.delete_all_messages()
 
 
     
