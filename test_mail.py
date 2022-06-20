@@ -20,7 +20,7 @@ class TestUserCanSendMail():
         page = MailPage(browser, self.link)
         page.open()
         page.prepare_test()
-        TEST_ROUNDS = 5
+        TEST_ROUNDS = 5 # enter the number of mails to be sent
         for round in range(TEST_ROUNDS):
             page.send_mail()
             page.try_to_find_deliverd_message()

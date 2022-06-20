@@ -16,11 +16,11 @@ class MailPage(BasePage):
         TRIES_MAXIMUM = 10
         while current_try < TRIES_MAXIMUM:
             try:
-                print('click try #', current_try)
+                # print('click try #', current_try)
                 self.browser.find_element(*selector).click()
                 return
             except Exception as e:
-                print('click error!', e)
+                # print('click error!', e)
                 if refresh:
                     self.browser.refresh()
                 else:
@@ -34,7 +34,7 @@ class MailPage(BasePage):
         self.try_click_element(MailPageLocators.INBOX_BTN, True)
 
     def find_random_subject(self, random_subject):
-        print("find_random_subject --->", random_subject)
+        # print("find_random_subject --->", random_subject)
         timeStart = time.time()
         INBOX_WAIT_TIMEOUT_30_SEC = 30
         while time.time() - timeStart < INBOX_WAIT_TIMEOUT_30_SEC:
@@ -42,11 +42,11 @@ class MailPage(BasePage):
             for selector in (MailPageLocators.DELIVERED_SUBJECT, MailPageLocators.DELIVERED_SUBJECT2, MailPageLocators.DELIVERED_SUBJECT3):
                 try:
                     subjectFound = self.browser.find_element(*selector).text
-                    print("subjectFound == random_subject", subjectFound, random_subject)
+                    # print("subjectFound == random_subject", subjectFound, random_subject)
                     if subjectFound == random_subject:
                         return
                 except Exception as e:
-                    print("error... :(", e)
+                    # print("error... :(", e)
                     pass
             time.sleep(1)
 
@@ -76,7 +76,7 @@ class MailPage(BasePage):
 
     def find_subject_inbox(self, subject):
         rows = self.browser.find_elements(*MailPageLocators.ROW);
-        print("rows", len(rows))
+        # print("rows", len(rows))
         if len(rows) == 0:
             raise Exception("Zero rows :(")
 
@@ -85,7 +85,7 @@ class MailPage(BasePage):
             span_elements = subject_element.find_elements(*MailPageLocators.ROW_SUBJECT_SPAN)
             row_subject = span_elements[0].text
             row_body = span_elements[1].text
-            print("row ->", row_subject, ", row_body", row_body)
+            # print("row ->", row_subject, ", row_body", row_body)
             if subject == row_subject:
                 subject_element.click()
                 return [row_subject, row_body]
@@ -100,7 +100,7 @@ class MailPage(BasePage):
 
         [subject, body] = self.find_subject_inbox(self.random_subject)
         self.dict[subject] = body
-        print("dict --> ", self.dict)
+        # print("dict --> ", self.dict)
 
         # delete read mail
         self.try_click_element(MailPageLocators.DELETE_BTN_IN_MAIL)
