@@ -1,4 +1,5 @@
-from homework_test.send_email import get_random_string
+import string
+import random
 from .base_page import BasePage
 from .locators import MailPageLocators
 import time
@@ -8,8 +9,8 @@ class MailPage(BasePage):
 
     # -----> create a random string for subject and body
     def get_random_string(self, length):
-        random_string = self.string.ascii_lowercase + self.string.digits
-        return ''.join(self.random.choice(random_string) for i in range(length))
+        random_string = string.ascii_lowercase + string.digits
+        return ''.join(random.choice(random_string) for i in range(length))
 
     # -----> try to click on the INBOX several times to avoid the error
     def try_click_element(self, selector, refresh=False):
@@ -42,7 +43,7 @@ class MailPage(BasePage):
     # -----> send mail with random subject and random body
     def send_mail(self):
         time.sleep(3)
-        self.random_subject = get_random_string(10)
+        self.random_subject = self.get_random_string(10)
 
         self.try_click_element(MailPageLocators.NEW_MAIL)
         time.sleep(1)
@@ -52,7 +53,7 @@ class MailPage(BasePage):
         subject = (self.random_subject)
         self.browser.find_element(*MailPageLocators.SUBJECT).send_keys(subject)
 
-        random_body = get_random_string(10)
+        random_body = self.get_random_string(10)
         body = (random_body)
         self.browser.find_element(*MailPageLocators.BODY).send_keys(body)
         self.try_click_element(MailPageLocators.SEND_BTN)
@@ -142,7 +143,7 @@ class MailPage(BasePage):
                     elif i.isdigit():
                         new_dict['Numbers'] += 1
 
-            self.new_random_subject = get_random_string(10)
+            self.new_random_subject = self.get_random_string(10)
             self.browser.find_element(
                 *MailPageLocators.SUBJECT).send_keys(self.new_random_subject)
             self.browser.find_element(*MailPageLocators.BODY).send_keys(
