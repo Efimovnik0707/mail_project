@@ -6,12 +6,12 @@ import time
 
 class MailPage(BasePage):
 
-    # create a random string for subject and body
+    # -----> create a random string for subject and body
     def get_random_string(self, length):
         random_string = self.string.ascii_lowercase + self.string.digits
         return ''.join(self.random.choice(random_string) for i in range(length))
 
-    # try to click on the INBOX several times to avoid the error
+    # -----> try to click on the INBOX several times to avoid the error
     def try_click_element(self, selector, refresh=False):
         current_try = 0
         TRIES_MAXIMUM = 10
@@ -30,16 +30,16 @@ class MailPage(BasePage):
             current_try += 1
         raise Exception("Click did not work :(")
 
-    # function for click on the INBOX
+    # -----> function for click on the INBOX
     def load_inbox(self):
         print('load inbox')
         self.try_click_element(MailPageLocators.INBOX_BTN, True)
 
-    # count for all functions
+    # -----> count for all functions
     def prepare_test(self):
         self.count = 1
 
-    # send mail with random subject and random body
+    # -----> send mail with random subject and random body
     def send_mail(self):
         time.sleep(3)
         self.random_subject = get_random_string(10)
@@ -60,31 +60,37 @@ class MailPage(BasePage):
         print("Mail number:", self.count, "- sent")
         time.sleep(3)
 
-    # trying to find a random_subject in 3 last rows
-    def find_random_subject(self, random_subject):
+    # -----> trying to find a random_subject in all rows
+    def check_for_the_same_subject(self, random_subject):
         # print("find_random_subject --->", random_subject)
         timeStart = time.time()
         INBOX_WAIT_TIMEOUT_30_SEC = 30
         while time.time() - timeStart < INBOX_WAIT_TIMEOUT_30_SEC:
             self.load_inbox()
-            for selector in (MailPageLocators.DELIVERED_SUBJECT, MailPageLocators.DELIVERED_SUBJECT2, MailPageLocators.DELIVERED_SUBJECT3):
-                try:
-                    subjectFound = self.browser.find_element(*selector).text
-                    # print("subjectFound == random_subject", subjectFound, random_subject)
-                    if subjectFound == random_subject:
-                        return
-                except Exception as e:
-                    # print("error... :(", e)
-                    pass
+            rows = self.browser.find_elements(*MailPageLocators.ROW)
+            # print("rows", len(rows))
+            if len(rows) == 0:
+                raise Exception("Zero rows :(")
+
+            for row_element in rows:
+                subject_element = row_element.find_element(
+                    *MailPageLocators.ROW_SUBJECT)
+                span_elements = subject_element.find_elements(
+                    *MailPageLocators.ROW_SUBJECT_SPAN)
+                row_subject = span_elements[0].text
+                row_body = span_elements[1].text
+                # print("row ->", row_subject, ", row_body", row_body)
+                if random_subject == row_subject:
+                    return
             time.sleep(1)
-    
-    # function for start find deliverd message
+
+    # -----> function for start find deliverd message
     def try_to_find_deliverd_message(self):
         self.load_inbox()
-        self.find_random_subject(self.random_subject)
+        self.check_for_the_same_subject(self.random_subject)
         print("Mail number: ", self.count, "- found")
 
-    # read mail and add data to dictionary
+    # -----> read mail and add data to dictionary
     def read_mail(self):
         # read mail
         self.load_inbox()
@@ -101,7 +107,7 @@ class MailPage(BasePage):
         self.try_click_element(MailPageLocators.DELETE_BTN_IN_MAIL)
         print("Mail number:", self.count, "- read")
 
-    # Trying to find a subject in all rows
+    # -----> trying to find a subject in all rows
     def find_subject_inbox(self, subject):
         rows = self.browser.find_elements(*MailPageLocators.ROW)
         # print("rows", len(rows))
@@ -120,7 +126,7 @@ class MailPage(BasePage):
                 subject_element.click()
                 return [row_subject, row_body]
 
-    # send second mail with collected data from first mail
+    # -----> send second mail with collected data from first mail
     def send_new_mail(self):
         # send_new_mail
         self.try_click_element(MailPageLocators.NEW_MAIL)
@@ -144,15 +150,14 @@ class MailPage(BasePage):
             self.try_click_element(MailPageLocators.SEND_BTN)
             time.sleep(2)
 
-    # re-check deliver mail 
+    # -----> re-check deliver mail
     def re_check_deliver_mail(self):
-        # re-check deliver mail
         self.load_inbox()
-        self.find_random_subject(self.new_random_subject)
+        self.check_for_the_same_subject(self.new_random_subject)
         print(self.count, "new mail(s) sent")
         print('Task number:', self.count, '- complete')
 
-    # select and delete all messages except the last one
+    # -----> select and delete all messages except the last one
     def delete_all_messages(self):
         self.load_inbox()
         time.sleep(1)
@@ -160,7 +165,7 @@ class MailPage(BasePage):
         self.try_click_element(MailPageLocators.SELECT_FIRST_MSG)
         self.try_click_element(MailPageLocators.DELETE_BTN)
 
-    # finall function for count
+    # -----> finall function for count
     def finalize_test_round(self):
         print(self.count, " round is finished")
         self.count += 1
