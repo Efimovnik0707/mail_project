@@ -1,7 +1,9 @@
 
 ## Всем привет. Это мой новый проект по работе с почтовым ящиком.
 
-
+>**ВАЖНО!** Для запуска теста вам понадобится браузер **Firefox** и **Geckodriver** для него. Запуск через **Chromedriver** на этом почтовом ящике нестабильный.
+>
+>**ВАЖНО!** Перед запуском теста залогиньтесь в почтовом ящике в ручную чтобы избежать появления капчи из-за webdrivera. Логин и пароль вы найдёте в файле **loginpage.py**
 
 ![This is screenshot](https://sun9-9.userapi.com/impg/-9g3vCOB_51dQijzQ44XBEFWNrKuktA0WvOe8A/P0vN5o47BK8.jpg?size=898x319&quality=95&sign=95a924bf57ccffe50e59679d53e4484e&type=album)
 - Скачайте все файлы в новую папку на своём компьютере
@@ -9,6 +11,17 @@
 - Создайте виртуальное окружение для работы с этим проектом в этой директории - **python -m venv venv**
 - Активируйте его с помощью команды -  **venv\Scripts\activate (для Windows)**
 - Установите в своё окружение нужные зависимости - **pip install -r requirements.txt**
+
+```
+cd ~\your_directory
+
+python -m venv venv
+
+venv\Scripts\activate
+
+pip install -r requirements.txt
+```
+
 
 ## Чтобы запустить тест используйте команду:
 > pytest -s -v test_mail.py
